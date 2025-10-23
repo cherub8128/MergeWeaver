@@ -1,0 +1,280 @@
+:root {
+  --bg-primary: #eef7f2; /* page background */
+  --bg-secondary: #ffffff; /* panels */
+  --bg-tertiary: #f3fbf6; /* inner panels */
+  --text-primary: #23372c;
+  --text-secondary: #5a7467;
+  --text-muted: #8aa79a;
+  --border-primary: #b7ddc5;
+  --border-secondary: #d2ecdd;
+  --tile-bg: url("assets/map/floor_bg.png");
+  --tile-blocked: url("assets/map/wall_tree_a.png");
+}
+body.light-mode {
+  --bg-primary: #eef7f2;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f3fbf6;
+  --text-primary: #23372c;
+  --text-secondary: #5a7467;
+  --text-muted: #8aa79a;
+  --border-primary: #b7ddc5;
+  --border-secondary: #d2ecdd;
+}
+
+html {
+  height: 100%;
+}
+body {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  min-height: 100%;
+  font-family: "Pretendard", sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-primary);
+  background-image: url("assets/background/forest_tile_dark.png");
+  background-repeat: repeat;
+  background-size: 256px 256px; /* 필요시 192~320로 조절 */
+}
+body.light-mode {
+  background-image: url("assets/background/forest_tile_light.png");
+}
+
+main {
+  flex-grow: 1;
+}
+.font-orbitron {
+  font-family: "Orbitron", sans-serif;
+}
+.bg-main {
+  background-color: var(--bg-secondary);
+}
+.bg-sub {
+  background-color: var(--bg-tertiary);
+}
+.border-main {
+  border-color: var(--border-primary);
+}
+.border-sub {
+  border-color: var(--border-secondary);
+}
+.text-main {
+  color: var(--text-primary);
+}
+.text-sub {
+  color: var(--text-secondary);
+}
+.text-muted {
+  color: var(--text-muted);
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-size), 1fr);
+  grid-template-rows: repeat(var(--grid-size), 1fr);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+}
+
+#map-grid {
+  background-image: var(--tile-bg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.grid-cell {
+  position: relative;
+  background: transparent;
+}
+.grid-cell:not(.passable)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(
+    --wall-img,
+    var(--tile-blocked)
+  ); /* per-cell 변수, 없으면 기본값 */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 90% 90%; /* 80~95% 사이 취향대로 */
+  transform: rotate(var(--wall-rot, 0deg)) scaleX(var(--wall-flip, 1));
+  transform-origin: center center;
+  pointer-events: none; /* 드래그/클릭 간섭 방지 */
+}
+
+.grid-cell,
+#map-grid {
+  image-rendering: auto;
+}
+
+#player,
+.map-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  transition: transform 0.5s ease-in-out;
+  will-change: transform;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#player {
+  z-index: 10;
+}
+
+#target {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  transition: transform 0.5s ease-in-out;
+  will-change: transform;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: var(--tw-translate, translate(0, 0));
+}
+
+.slot {
+  background-color: var(--bg-tertiary);
+  border: 2px dashed var(--border-primary);
+  aspect-ratio: 1 / 1;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.slot.over {
+  background-color: #4b5563;
+  border-color: #6b7280;
+}
+body.light-mode .slot.over {
+  background-color: #d1d5db;
+  border-color: #9ca3af;
+}
+
+.item {
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  user-select: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1px;
+  padding: 2px;
+  border-radius: 0.375rem;
+  position: relative;
+  touch-action: none;
+}
+
+.item.vector {
+  background: transparent !important;
+  border: none !important;
+}
+.item.vector img {
+  image-rendering: auto;
+}
+.item.dragging-source {
+  opacity: 0.3;
+}
+
+.item img {
+  max-width: 85%;
+  max-height: 85%;
+  image-rendering: auto;
+}
+
+.ghost-item {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1000;
+  transform: translate(-50%, -50%) scale(1.1);
+  opacity: 0.8;
+}
+.item:active {
+  cursor: grabbing;
+}
+.pouch {
+  animation: pulse-pouch 2.5s infinite;
+}
+@keyframes pulse-pouch {
+  0% {
+    box-shadow: 0 0 8px #a78bfa;
+  }
+  50% {
+    box-shadow: 0 0 20px #a78bfa;
+  }
+  100% {
+    box-shadow: 0 0 8px #a78bfa;
+  }
+}
+
+.message-box {
+  position: fixed;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: bottom 0.5s ease-in-out;
+  z-index: 100;
+}
+.message-box.show {
+  bottom: 20px;
+}
+#ending-popup,
+#gameover-popup,
+#help-modal,
+#confirm-reset-popup {
+  transition: opacity 0.5s, visibility 0.5s;
+}
+
+.map-coord {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  font-family: "Orbitron", sans-serif;
+  text-align: center;
+}
+
+.count-badge {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-weight: 700;
+  font-size: 12px;
+  border-radius: 9999px;
+  padding: 2px 6px;
+}
+
+.tab-btn {
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+}
+.tab-btn.active {
+  background-color: #4f46e5;
+  color: white;
+}
+
+#workbench-panel {
+  background-image: url("assets/background/wood_tile.png");
+  background-size: 320px 320px;
+  background-repeat: repeat;
+  border-color: #b48a5a !important; /* warm brown border */
+  box-shadow: inset 0 0 0 2px rgba(136, 94, 52, 0.15),
+    0 10px 24px rgba(0, 0, 0, 0.12);
+}
+#workbench-panel .slot {
+  background-color: rgba(255, 255, 255, 0.65);
+  border-color: rgba(180, 138, 90, 0.55);
+}
