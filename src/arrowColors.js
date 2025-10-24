@@ -1,46 +1,42 @@
 export const ARROW_COLOR = {
-  0: '#FF8A7A',
-  1: '#F3978E',
-  2: '#E6A29F',
-  3: '#D8ADAD',
-  4: '#C8B7BB',
-  5: '#B7C0C7',
-  6: '#BBBBBD',
-  7: '#BEB6B2',
-  8: '#C1B0A6',
-  9: '#C5AB99',
-  10: '#C8A58A',
-  11: '#BEB193',
-  12: '#B4BB9B',
-  13: '#A9C5A2',
-  14: '#9DCEA9',
-  15: '#90D7B0',
-  16: '#90D4C0',
-  17: '#8FD2CF',
-  18: '#8FCFDC',
-  19: '#8ECCE8',
-  20: '#8EC9F4',
-  21: '#A0D3F6',
-  22: '#B1DCF8',
-  23: '#BFE4FB',
-  24: '#CCECFD',
-  25: '#D8F4FF',
-  26: '#D9F4FE',
-  27: '#DAF4FD',
-  28: '#DBF3FC',
-  29: '#DCF3FB',
-  30: '#DDF3FA',
-  31: '#E4F0E9',
-  32: '#EBEED5',
-  33: '#F2EBBF',
-  34: '#F9E9A6',
-  35: '#FFE685',
-  36: '#FFD883',
-  37: '#FFC881',
-  38: '#FFB67F',
-  39: '#FFA27C',
+  0: "#FFC34D", // From arrow_000.png
+  1: "#FA6807", // From arrow_351.png
+  2: "#FE7A2D", // From arrow_342.png
+  3: "#FFE8A1", // From arrow_333.png
+  4: "#FFB733", // From arrow_324.png
+  5: "#FFD978", // From arrow_315.png
+  6: "#FFF299", // From arrow_306.png
+  7: "#D4D4D0", // From arrow_297.png
+  8: "#B8C4BE", // From arrow_288.png
+  9: "#A6D2E6", // From arrow_279.png
+  10: "#9DD9D9", // From arrow_270.png
+  11: "#94DDE3", // From arrow_261.png
+  12: "#C0D1CC", // From arrow_252.png
+  13: "#B2CFD9", // From arrow_243.png
+  14: "#BDE6E0", // From arrow_234.png
+  15: "#A9E8E5", // From arrow_225.png
+  16: "#7ABED4", // From arrow_216.png
+  17: "#AEE0E0", // From arrow_207.png
+  18: "#B0E8E5", // From arrow_198.png
+  19: "#87E0E6", // From arrow_189.png
+  20: "#6EC9D9", // From arrow_180.png
+  21: "#D1D9D6", // From arrow_171.png
+  22: "#B4E5E2", // From arrow_162.png
+  23: "#9DC78D", // From arrow_153.png
+  24: "#A9C552", // From arrow_144.png
+  25: "#B0D16A", // From arrow_135.png
+  26: "#9FC24A", // From arrow_126.png
+  27: "#A8C350", // From arrow_117.png
+  28: "#C9A56D", // From arrow_108.png
+  29: "#D1B06F", // From arrow_099.png
+  30: "#E4B55C", // From arrow_090.png
+  31: "#D9B275", // From arrow_081.png
+  32: "#C99A4D", // From arrow_072.png
+  33: "#B89150", // From arrow_063.png
+  34: "#99987D", // From arrow_054.png
+  35: "#A9B3A4", // From arrow_045.png
+  36: "#F2D5A0", // From arrow_036.png
+  37: "#D27D4E", // From arrow_027.png
+  38: "#F38A3F", // From arrow_018.png
+  39: "#FFC86E", // From arrow_009.png
 };
-
-if (typeof window !== 'undefined' && typeof ARROW_COLOR !== 'undefined') {
-  window.ARROW_COLOR = ARROW_COLOR;   // 전역 노출
-}
