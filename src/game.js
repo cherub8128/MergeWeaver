@@ -432,7 +432,11 @@ function attachItemListeners(item) {
 function getPointFromEvent(e) {
   if (e.type.startsWith("touch")) {
     let touchList = e.touches && e.touches.length ? e.touches : null;
-    if ((!touchList || !touchList.length) && e.changedTouches && e.changedTouches.length) {
+    if (
+      (!touchList || !touchList.length) &&
+      e.changedTouches &&
+      e.changedTouches.length
+    ) {
       touchList = e.changedTouches;
     }
     if (!touchList || !touchList.length) return null;
@@ -500,7 +504,12 @@ function handleInteractionMove(e) {
   e.preventDefault();
   const point = getPointFromEvent(e);
   if (!point) return;
-  if (activeTouchId !== null && point.identifier !== undefined && point.identifier !== activeTouchId) return;
+  if (
+    activeTouchId !== null &&
+    point.identifier !== undefined &&
+    point.identifier !== activeTouchId
+  )
+    return;
   lastPointerPos = { x: point.clientX, y: point.clientY };
   if (!isDragging) {
     const dx = point.clientX - startPos.x;
@@ -513,7 +522,10 @@ function handleInteractionMove(e) {
     state.dragged.element.style.left = `${point.clientX}px`;
     state.dragged.element.style.top = `${point.clientY}px`;
     state.dragged.element.style.display = "none";
-    const elementBelow = document.elementFromPoint(point.clientX, point.clientY);
+    const elementBelow = document.elementFromPoint(
+      point.clientX,
+      point.clientY
+    );
     state.dragged.element.style.display = "";
     allSlots.forEach((s) => s.classList.remove("over"));
     const targetSlot = elementBelow?.closest(".slot");
@@ -530,7 +542,10 @@ function handleInteractionEnd(e) {
   const wasDragging = isDragging;
   if (isDragging) {
     if (state.dragged.element) state.dragged.element.style.display = "none";
-    const point = getPointFromEvent(e) || { clientX: lastPointerPos.x, clientY: lastPointerPos.y };
+    const point = getPointFromEvent(e) || {
+      clientX: lastPointerPos.x,
+      clientY: lastPointerPos.y,
+    };
     const targetSlot = document
       .elementFromPoint(point.clientX, point.clientY)
       ?.closest(".slot");
@@ -962,9 +977,17 @@ function fullReset() {
 function init() {
   // grid scaffold
   mapGrid.style.setProperty("--grid-size", GRID_SIZE);
-  mapGrid.innerHTML = Array(GRID_SIZE * GRID_SIZE)
-    .fill('<div class="grid-cell"></div>')
-    .join("");
+  const cells = [];
+  for (let y = 0; y < GRID_SIZE; y++) {
+    for (let x = 0; x < GRID_SIZE; x++) {
+      // displayY is used for visual layout (top to bottom)
+      const displayY = GRID_SIZE - 1 - y;
+      cells.push(
+        `<div class="grid-cell" data-x="${x}" data-y="${displayY}"></div>`
+      );
+    }
+  }
+  mapGrid.innerHTML = cells.join("");
   drawMapCoords(mapCoordsX, mapCoordsY, GRID_SIZE);
   initLegends();
   window.addEventListener("resize", handleResize);

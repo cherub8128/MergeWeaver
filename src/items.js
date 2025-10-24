@@ -62,44 +62,34 @@ export function createVectorItemHTML(vx, vy) {
 }
 
 export function createPouchItemHTML(c = 10) {
-  return `<div class="item bg-main border-2 border-purple-400 pouch" data-item-type="pouch" data-count="${c}">
+  return `<div class="item pouch" data-item-type="pouch" data-count="${c}">
     <div class="count-badge"> ${c} </div>
     <img src="${ItemSprites.pouch}" alt="pouch"/>
-    <span class="text-xs font-bold text-purple-200">소환구슬</span>
+    <span class="item-name text-xs font-bold">소환구슬</span>
   </div>`;
 }
 
 export function createResidueItemHTML(t) {
-  const colors = [
-    { bg: "bg-gray-800", border: "border-gray-600", text: "text-gray-300" },
-    { bg: "bg-slate-800", border: "border-slate-600", text: "text-slate-300" },
-    { bg: "bg-zinc-800", border: "border-zinc-600", text: "text-zinc-300" },
-    {
-      bg: "bg-neutral-800",
-      border: "border-neutral-600",
-      text: "text-neutral-300",
-    },
-  ];
-  const { bg, border, text } = colors[Math.min(t - 1, colors.length - 1)];
-  return `<div class="item ${bg} border-2 ${border} shadow-inner" data-item-type="residue" data-tier="${t}">
+  const tierClass = `residue-${Math.min(t, 3)}`;
+  return `<div class="item shadow-inner ${tierClass}" data-item-type="residue" data-tier="${t}">
     <div class="count-badge">Lv.${t}</div>
     <img src="${ItemSprites.crystal}" alt="residue"/>
-    <span class="text-xs font-bold ${text}">정령 결정</span>
+    <span class="item-name text-xs font-bold">정령 결정</span>
   </div>`;
 }
 
 export function createRecyclerItemHTML(t, c) {
   const count = c || 3;
-  return `<div class="item bg-emerald-900/40 border-2 border-emerald-300 shadow-lg" data-item-type="recycler" data-tier="${t}" data-count="${count}">
+  return `<div class="item shadow-lg recycler" data-item-type="recycler" data-tier="${t}" data-count="${count}">
     <div class="count-badge">x${count}</div>
     <img src="${ItemSprites.recycler}" alt="recycler"/>
-    <span class="text-xs font-bold text-green-200">마법서 Lv.${t}</span>
+    <span class="item-name text-xs font-bold">마법서 Lv.${t}</span>
   </div>`;
 }
 
 export function createScalarItemHTML(v) {
   const key = v === -1 ? "scalar_n1" : "scalar_n1";
-  return `<div class="item bg-gray-100 border-2 border-gray-400 text-gray-800" data-item-type="scalar" data-value="${v}">
+  return `<div class="item scalar text-gray-800" data-item-type="scalar" data-value="${v}">
     <img src="${ItemSprites[key]}" alt="scalar ${v}"/>
     <span class="text-xs font-bold">거울</span>
   </div>`;
@@ -114,8 +104,11 @@ export function createObstacleItemHTML(c, h) {
       arrowIndex = Math.round(hue / 9) % 40;
     }
   }
-  const arrowColor = typeof arrowIndex === "number" ? ARROW_COLOR[arrowIndex] : null;
-  const backgroundStyle = arrowColor ? `background-color: ${arrowColor};` : c.bg || "";
+  const arrowColor =
+    typeof arrowIndex === "number" ? ARROW_COLOR[arrowIndex] : null;
+  const backgroundStyle = arrowColor
+    ? `background-color: ${arrowColor};`
+    : c.bg || "";
   const borderStyle = c.border || "";
   return `<div class="item border-4 shadow-lg" style="${backgroundStyle} ${borderStyle}" data-item-type="obstacle" data-color-name="${c.name}" data-hidden-item="${e}">
     <img src="${ItemSprites.obstacle}" alt="obstacle"/>

@@ -90,6 +90,16 @@ main {
   position: relative;
   background: transparent;
 }
+/* 지나갈 수 없는 타일에만 안쪽 그림자로 부드러운 경계 효과(vignette)를 적용합니다. */
+.grid-cell:not(.passable) {
+  box-shadow: inset 0 0 12px 4px rgba(0, 0, 0, 0.25);
+}
+
+.grid-cell.passable {
+  /* 지나갈 수 있는 타일에 아주 은은한 비네팅 효과를 추가합니다. */
+  box-shadow: inset 0 0 10px 4px rgba(0, 0, 0, 0.1);
+}
+
 .grid-cell:not(.passable)::after {
   content: "";
   position: absolute;
@@ -210,13 +220,13 @@ body.light-mode .slot.over {
 }
 @keyframes pulse-pouch {
   0% {
-    box-shadow: 0 0 8px #a78bfa;
+    box-shadow: 0 0 8px #d9aa8f;
   }
   50% {
-    box-shadow: 0 0 20px #a78bfa;
+    box-shadow: 0 0 20px #d9aa8f;
   }
   100% {
-    box-shadow: 0 0 8px #a78bfa;
+    box-shadow: 0 0 8px #d9aa8f;
   }
 }
 
@@ -277,4 +287,81 @@ body.light-mode .slot.over {
 #workbench-panel .slot {
   background-color: rgba(255, 255, 255, 0.65);
   border-color: rgba(180, 138, 90, 0.55);
+}
+
+/* --- Item Specific Styles --- */
+
+/* 마법서 (Recycler) */
+.item.recycler {
+  background-color: #f2c166;
+  border-color: #a67449;
+  border-width: 2px;
+}
+.item.recycler .count-badge {
+  background-color: #a67449;
+  color: white;
+}
+.item.recycler .item-name {
+  color: #6b4d30;
+}
+
+/* 소환구슬 (Pouch) */
+.item.pouch {
+  background-color: #f2d7b6;
+  border-color: #d9aa8f;
+  border-width: 2px;
+}
+.item.pouch .count-badge {
+  background-color: #b08c75;
+  color: white;
+}
+.item.pouch .item-name {
+  color: #8c6f5c;
+}
+
+/* 정령 결정 (Residue) */
+.item.residue-1 {
+  background-color: #edced4;
+  border-color: #c6acbf;
+  border-width: 2px;
+}
+.item.residue-1 .count-badge {
+  background-color: #c6acbf;
+  color: white;
+}
+.item.residue-1 .item-name {
+  color: #4a3c4d;
+}
+
+.item.residue-2 {
+  background-color: #c6acbf;
+  border-color: #9f85a6;
+  border-width: 2px;
+}
+.item.residue-2 .count-badge {
+  background-color: #9f85a6;
+  color: white;
+}
+.item.residue-2 .item-name {
+  color: #4a3c4d;
+}
+
+.item.residue-3 {
+  background-color: #9f85a6;
+  border-color: #7a6880;
+  border-width: 2px;
+}
+.item.residue-3 .count-badge {
+  background-color: #7a6880;
+  color: #e0e0e0;
+}
+.item.residue-3 .item-name {
+  color: white;
+}
+
+/* 스칼라 (Scalar) */
+.item.scalar {
+  background-color: #f3f4f6; /* bg-gray-100 */
+  border-color: #9ca3af; /* border-gray-400 */
+  border-width: 2px;
 }
