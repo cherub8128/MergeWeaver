@@ -1,26 +1,26 @@
 :root {
   /* Dark Mode (Default) */
-  --bg-primary: #1a202c; /* page background */
-  --bg-secondary: #2d3748; /* panels */
-  --bg-tertiary: #4a5568; /* inner panels */
-  --text-primary: #e2e8f0;
-  --text-secondary: #a0aec0;
-  --text-muted: #718096;
-  --border-primary: #4a5568;
-  --border-secondary: #6b7280;
-  --tile-bg: url("assets/map/floor_bg_dark.png"); /* Dark mode specific tile background */
+  --bg-primary: #152026; /* page background - darkest */
+  --bg-secondary: #142426; /* panels - slightly lighter than primary */
+  --bg-tertiary: #224040; /* inner panels - distinct dark green-blue */
+  --text-primary: #e0e6eb; /* very light gray for main text */
+  --text-secondary: #aabcc4; /* slightly darker light gray for secondary text */
+  --text-muted: #7f909c; /* muted gray for less prominent text */
+  --border-primary: #334155; /* dark blue-gray for primary borders */
+  --border-secondary: #475569; /* slightly lighter blue-gray for secondary borders */
+  --tile-bg: url("assets/map/floor_bg.png"); /* Dark mode specific tile background */
   --tile-blocked: url("assets/map/wall_tree_dark_a.png"); /* Dark mode specific blocked tile */
 }
 body.light-mode {
   /* Light Mode Overrides */
-  --bg-primary: #eef7f2;
-  --bg-secondary: #ffffff;
-  --bg-tertiary: #f3fbf6;
-  --text-primary: #23372c;
-  --text-secondary: #5a7467;
-  --text-muted: #8aa79a;
-  --border-primary: #b7ddc5;
-  --border-secondary: #d2ecdd;
+  --bg-primary: #f5f9e0; /* A very light yellow-green, derived from #EBF2B3 */
+  --bg-secondary: #fcfdf7; /* A clean, slightly warm off-white for panels */
+  --bg-tertiary: #ebf2b3; /* The lightest of the provided colors for inner panels */
+  --text-primary: #525936; /* A dark olive green for high contrast text */
+  --text-secondary: #73804a; /* A medium olive green for secondary text */
+  --text-muted: #93a16c; /* A softer olive for muted text */
+  --border-primary: #afbf75; /* The mid-tone green for primary borders */
+  --border-secondary: #c8d98b; /* The lighter green for secondary borders */
   --tile-bg: url("assets/map/floor_bg.png"); /* Light mode specific tile background */
   --tile-blocked: url("assets/map/wall_tree_a.png"); /* Light mode specific blocked tile */
 }
