@@ -1,16 +1,18 @@
 :root {
-  --bg-primary: #eef7f2; /* page background */
-  --bg-secondary: #ffffff; /* panels */
-  --bg-tertiary: #f3fbf6; /* inner panels */
-  --text-primary: #23372c;
-  --text-secondary: #5a7467;
-  --text-muted: #8aa79a;
-  --border-primary: #b7ddc5;
-  --border-secondary: #d2ecdd;
-  --tile-bg: url("assets/map/floor_bg.png");
-  --tile-blocked: url("assets/map/wall_tree_a.png");
+  /* Dark Mode (Default) */
+  --bg-primary: #1a202c; /* page background */
+  --bg-secondary: #2d3748; /* panels */
+  --bg-tertiary: #4a5568; /* inner panels */
+  --text-primary: #e2e8f0;
+  --text-secondary: #a0aec0;
+  --text-muted: #718096;
+  --border-primary: #4a5568;
+  --border-secondary: #6b7280;
+  --tile-bg: url("assets/map/floor_bg_dark.png"); /* Dark mode specific tile background */
+  --tile-blocked: url("assets/map/wall_tree_dark_a.png"); /* Dark mode specific blocked tile */
 }
 body.light-mode {
+  /* Light Mode Overrides */
   --bg-primary: #eef7f2;
   --bg-secondary: #ffffff;
   --bg-tertiary: #f3fbf6;
@@ -19,6 +21,8 @@ body.light-mode {
   --text-muted: #8aa79a;
   --border-primary: #b7ddc5;
   --border-secondary: #d2ecdd;
+  --tile-bg: url("assets/map/floor_bg.png"); /* Light mode specific tile background */
+  --tile-blocked: url("assets/map/wall_tree_a.png"); /* Light mode specific blocked tile */
 }
 
 html {
