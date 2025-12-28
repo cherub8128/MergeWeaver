@@ -1,4 +1,5 @@
 import { VectorSprites, ItemSprites } from "./assets.js";
+import { celebrationEffect } from "./particle.js";
 import {
   createVectorItemHTML,
   createPouchItemHTML,
@@ -98,9 +99,8 @@ function randInt(max) {
 function showMessage(msg, type) {
   const box = document.getElementById("message-box");
   box.textContent = msg;
-  box.className = `message-box p-3 rounded-lg text-white font-bold shadow-lg show ${
-    type === "success" ? "bg-green-600" : "bg-red-600"
-  }`;
+  box.className = `message-box p-3 rounded-lg text-white font-bold shadow-lg show ${type === "success" ? "bg-green-600" : "bg-red-600"
+    }`;
   setTimeout(() => box.classList.remove("show"), 2000);
 }
 
@@ -158,19 +158,19 @@ function createItemHTMLFromData(data) {
       const colorName = data.colorName;
       const colorInfo = colorName.startsWith("color-")
         ? {
-            name: colorName,
-            bg: `background-color: hsl(${parseInt(
-              colorName.split("-")[1]
-            )}, 80%, 55%);`,
-            border: `border-color: hsl(${parseInt(
-              colorName.split("-")[1]
-            )}, 80%, 70%);`,
-          }
+          name: colorName,
+          bg: `background-color: hsl(${parseInt(
+            colorName.split("-")[1]
+          )}, 80%, 55%);`,
+          border: `border-color: hsl(${parseInt(
+            colorName.split("-")[1]
+          )}, 80%, 70%);`,
+        }
         : {
-            name: colorName,
-            bg: "background-color: #4B5563;",
-            border: "border-color: #6B7280;",
-          };
+          name: colorName,
+          bg: "background-color: #4B5563;",
+          border: "border-color: #6B7280;",
+        };
       try {
         return createObstacleItemHTML(
           colorInfo,
@@ -319,8 +319,8 @@ function setupLevel(isReset = true) {
           itemType === "pouch"
             ? 5 + randInt(6)
             : itemType === "recycler"
-            ? 3 + randInt(3)
-            : undefined,
+              ? 3 + randInt(3)
+              : undefined,
         vector: itemType === "vector" ? BASE_VECTORS[randInt(4)] : undefined,
       });
     }
@@ -618,9 +618,8 @@ function handlePouchClick(e) {
   flyingItem.style.cssText = `position:fixed; left:${pouchRect.left}px; top:${pouchRect.top}px; width:${pouchRect.width}px; height:${pouchRect.height}px; transition:all .4s cubic-bezier(.5,-.5,.5,1.5); z-index:1000;`;
   document.body.appendChild(flyingItem);
   flyingItem.getBoundingClientRect();
-  flyingItem.style.transform = `translate(${
-    slotRect.left - pouchRect.left
-  }px, ${slotRect.top - pouchRect.top}px) scale(1)`;
+  flyingItem.style.transform = `translate(${slotRect.left - pouchRect.left
+    }px, ${slotRect.top - pouchRect.top}px) scale(1)`;
   setTimeout(() => {
     document.body.removeChild(flyingItem);
     targetSlot.innerHTML = newItemHTML;
@@ -964,6 +963,26 @@ confirmFinalResetBtn.addEventListener("click", () => {
   confirmResetPopup.classList.add("invisible", "opacity-0");
   fullReset();
 });
+
+function showSpecialEnding() {
+  const finalGemContainer = document.getElementById("final-gem-collection");
+  finalGemContainer.innerHTML = "";
+  GEMS.forEach((gem) => {
+    const gemEl = document.createElement("div");
+    gemEl.className = `w-12 h-12 flex items-center justify-center`;
+    const img = document.createElement("img");
+    img.src = ItemSprites.gems[gem.id];
+    img.alt = gem.id;
+    img.className = "w-full h-full";
+    gemEl.appendChild(img);
+    finalGemContainer.appendChild(gemEl);
+  });
+  endingPopup.classList.remove("invisible", "opacity-0");
+  endingPopup.querySelector("div").classList.add("scale-100");
+
+  // Start celebration particle effect
+  celebrationEffect.start();
+}
 
 function fullReset() {
   setCookie("vectorMergeState", "", -1);
